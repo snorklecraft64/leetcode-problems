@@ -3,7 +3,7 @@ a collection of leetcode problem solutions and a custom testing framework to tes
 
 works for Windows, but probably does not work for Mac or Linux.
   
-To get it to work on Linux, you may only need to change the 'clean' rule in the Makefile to use '/'' instead of '\'.
+To get it to work on Linux, you may only need to change the 'clean' rule in the Makefile to use '/' instead of '\\'.
 
 ## Build
 use make in root folder to build
