@@ -21,6 +21,10 @@ DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 _TESTDEPS = test.h test_include.h
 TESTDEPS = $(patsubst %,$(TDIR)/$(IDIR)/%,$(_TESTDEPS))
 
+_dummy := $(@shell mkdir $(OUTDIR))
+_dummy := $(@shell mkdir $(ODIR))
+_dummy := $(@shell mkdir $(TDIR)\$(ODIR))
+
 $(ODIR)/run_tests.o: run_tests.cpp $(TESTS) $(IDIR)/run_tests.h $(TDIR)/$(IDIR)/all_tests.h
 	$(CC) -c -o $@ $< $(CFLAGS)
 
