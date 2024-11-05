@@ -3,6 +3,12 @@
 #include <iostream>
 #include <sstream>
 
+/*
+CHECK HEADER FILE FOR PROBLEM DESCRIPTIONS
+
+#--Erik Warling--#
+*/
+
 int Problems::candy(std::vector<int>& ratings) {
   std::vector<int> candies(ratings.size(), 1);
   for (int i = 1; i < ratings.size(); i++) {
