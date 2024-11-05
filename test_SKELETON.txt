@@ -1,0 +1,29 @@
+#include "test_include.h"
+
+class TestCHANGE : public Test {
+  private:
+
+    static TEST_RETURN test_leetcode1() {
+      std::vector<int> input = {0,1,0,2,1,0,1,3,2,1,2,1};
+      int expected = 6;
+      int value = Problems::CHANGE(input);
+      bool passed = expected == value;
+      return Test::formatReturn(passed, value, expected);
+    }
+
+    static TEST_RETURN test_leetcode2() {
+      std::vector<int> input = {4,2,0,3,2,5};
+      int expected = 9;
+      int value = Problems::CHANGE(input);
+      bool passed = expected == value;
+      return Test::formatReturn(passed, value, expected);
+    }
+
+  public:
+
+    TestCHANGE() : Test("CHANGE",
+      {{"Leetcode Example 1", &test_leetcode1},
+       {"Leetcode Example 2", &test_leetcode2}})
+    {}
+    
+};
