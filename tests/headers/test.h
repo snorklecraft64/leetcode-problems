@@ -17,11 +17,15 @@ class Test {
     std::map<std::string, testPtr> tests;
     int verbosity;
 
-    //static void printStart(std::string source, std::string name);
-    //static void printEnd(std::string message);
-    void printResult(bool passed, std::string source);
-  
-    bool runTest(std::string source, std::string name, testPtr test);
+    /**
+     * Print formatted result of all tests being run
+     */
+    void printResult(bool passed);
+
+    /**
+     * Run the function 'test' from
+     */
+    bool runTest(std::string name, testPtr test);
 
   public:
 
@@ -29,6 +33,9 @@ class Test {
     Test(std::string source, std::map<std::string, testPtr> tests, int v = 2);
     ~Test();
 
+    /**
+     * Create TEST_RETURN based on whether the test passed, the returned value, and the expected value
+     */
     template<typename T>
     static TEST_RETURN formatReturn(bool passed, T value, T expected) {
       TEST_RETURN t;
@@ -46,16 +53,25 @@ class Test {
     void setVerbosity(int v) { this->verbosity = v; }
 
     // maybe try to implement this someday
-    // intended to be a general purpose run test function
+    // intended to be a general purpose run test function for ease of test implementation
     //template<typename I, typename R>
     //static R run(I input, R (*func)(I)) {
     //  return func(input);
     //}
 
+    /**
+     * Run all tests
+     */
     void runAll();
+    /**
+     * Run test with the name 'testName'
+     */
     void runOne(std::string testName);
 };
 
+/**
+ * inline overload for formatReturn to allow use of string
+ */
 template<> inline
 TEST_RETURN Test::formatReturn(bool passed, std::string value, std::string expected) {
   TEST_RETURN t;
