@@ -88,4 +88,12 @@ class Problems {
     static int needle_in_haystack(const std::string& haystack, const std::string& needle);
 
 
+    /**
+     * Given an array of strings words and a width maxWidth,
+     * format the text such that each line has exactly maxWidth characters and is fully (left and right) justified.
+     * 
+     * https://leetcode.com/problems/text-justification/?envType=study-plan-v2&envId=top-interview-150
+     */
+    static std::vector<std::string> full_justify(const std::vector<std::string>& words, int maxWidth);
+
 };

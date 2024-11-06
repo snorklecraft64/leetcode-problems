@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string>
 #include <map>
-#include <chrono>
-#include <type_traits>
+#include <vector>
+#include "utilities.h"
 
 struct TEST_RETURN {
   bool passed;
@@ -27,6 +27,20 @@ class Test {
      */
     bool runTest(std::string name, testPtr test);
 
+    /**
+     * Format fail message according to type
+     */
+    static std::string formatFail(int value, int expected) {
+      return "---Failed---> Expected ( " + std::to_string(expected) + " ) but got ( " + std::to_string(value) + " ).";
+    }
+    static std::string formatFail(std::string value, std::string expected) {
+      return "---Failed---> Expected ( " + expected + " ) but got ( " + value + " ).";
+    }
+    template<typename T>
+    static std::string formatFail(std::vector<T> value, std::vector<T> expected) {
+      return "---Failed---> Expected ( " + Utilities::vectorToString(expected) + " ) but got ( " + Utilities::vectorToString(value) + " ).";
+    }
+
   public:
 
     Test();
@@ -45,7 +59,7 @@ class Test {
       }
       else {
         t.passed = false;
-        t.message = "---Failed---> Expected ( " + std::to_string(expected) + " ) but got ( " + std::to_string(value) + " ).";
+        t.message = formatFail(value, expected);
       }
       return t;
     }
@@ -69,19 +83,19 @@ class Test {
     void runOne(std::string testName);
 };
 
-/**
- * inline overload for formatReturn to allow use of string
- */
-template<> inline
-TEST_RETURN Test::formatReturn(bool passed, std::string value, std::string expected) {
-  TEST_RETURN t;
-  if (passed) {
-    t.passed = true;
-    t.message = "Passed";
-  }
-  else {
-    t.passed = false;
-    t.message = "---Failed---> Expected \"" + expected + "\" but got \"" + value + "\".";
-  }
-  return t;
-}
+///**
+// * inline overload for formatReturn to allow use of string
+// */
+//template<> inline
+//TEST_RETURN Test::formatReturn(bool passed, std::string value, std::string expected) {
+//  TEST_RETURN t;
+//  if (passed) {
+//    t.passed = true;
+//    t.message = "Passed";
+//  }
+//  else {
+//    t.passed = false;
+//    t.message = "---Failed---> Expected \"" + expected + "\" but got \"" + value + "\".";
+//  }
+//  return t;
+//}

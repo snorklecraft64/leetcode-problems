@@ -7,3 +7,4 @@
 #include "test_reversewords.cpp"
 #include "test_zigzagconversion.cpp"
 #include "test_needleinhaystack.cpp"
+#include "test_fulljustify.cpp"

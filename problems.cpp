@@ -6,6 +6,10 @@
 /*
 CHECK HEADER FILE FOR PROBLEM DESCRIPTIONS
 
+Not much argument validation is done in these methods
+because part of leetcodes problem descriptions usually
+says that the input is guarenteed to be a certain way
+
 #--Erik Warling--#
 */
 
@@ -350,7 +354,79 @@ int Problems::needle_in_haystack(const std::string& haystack, const std::string&
   return index;
 }
 
+/**
+ * helper function that adds spaces needed to justify and returns the full line
+ */
+std::string justify_line(std::vector<std::string>& currWords, int currCount, int maxWidth) {
+  int spacesNeeded = maxWidth - currCount;
+  if (currWords.size() > 1) {
+    // regardless of spaces needed, we need a space between each word in the first place
+    for (int i = 0; i < currWords.size()-1; i++) {
+      currWords[i] += " ";
+    }
+    int j = 0; // index in currWords to add to
+    // add spaces to end of words (expect last) until we have all the spaces we need
+    for (int i = 0; i < spacesNeeded; i++) {
+      if (j == currWords.size()-1) {
+        j = 0;
+      }
+      currWords[j] += " ";
+      j++;
+    }
+    // combine words together and add to justified result
+    std::string line;
+    for (int i = 0; i < currWords.size(); i++) {
+      line += currWords[i];
+    }
+    return line;
+  }
+  else {
+    // if only one word, just add spaces needed to end
+    for (int i = 0; i < spacesNeeded; i++) {
+      currWords[0] += " ";
+    }
+    return currWords[0];
+  }
+}
 
+std::vector<std::string> Problems::full_justify(const std::vector<std::string>& words, int maxWidth) {
+  int currCount = 0;
+  std::vector<std::string> currWords;
+  std::vector<std::string> justified;
+
+  std::string word = words[0];
+  currWords.push_back(word);
+  currCount += word.size();
+  for (int i = 1; i < words.size(); i++) {
+    word = words[i];
+    if (currCount + word.size() + 1 > maxWidth) { // +1 is for the space 
+      
+      justified.push_back(justify_line(currWords, currCount, maxWidth));
+
+      currWords.clear();
+      currWords.push_back(word);
+      currCount = word.size();
+    }
+    else {
+      currWords.push_back(word);
+      currCount += word.size() + 1;
+    }
+  }
+
+  // add remaining words to result (left justified)
+  std::string line = currWords[0];
+  for (int i = 1; i < currWords.size(); i++) {
+    line += " " + currWords[i];
+  }
+
+  // add spaces at end
+  while (line.size() < maxWidth)
+    line += " ";
+
+  justified.push_back(line);
+
+  return justified;
+}
 
 
 
