@@ -9,8 +9,8 @@ OUTDIR=out
 
 LIBS=-lm
 
-_TESTS = test.o test_candy.o test_traprain.o test_romantoint.o test_inttoroman.o test_longestcommonprefix.o test_reversewords.o test_zigzagconversion.o test_needleinhaystack.o test_fulljustify.o test_ispalindrome.o
-TESTS = $(patsubst %,$(TDIR)/$(ODIR)/%,$(_TESTS))
+_TESTS = candy traprain romantoint inttoroman longestcommonprefix reversewords zigzagconversion needleinhaystack fulljustify ispalindrome
+TESTS = $(patsubst %,$(TDIR)/$(ODIR)/test_%.o,$(_TESTS))
 
 _OBJ = utilities.o problems.o run_tests.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
@@ -25,7 +25,7 @@ _dummy := $(@shell mkdir $(OUTDIR))
 _dummy := $(@shell mkdir $(ODIR))
 _dummy := $(@shell mkdir $(TDIR)\$(ODIR))
 
-$(ODIR)/run_tests.o: run_tests.cpp $(TESTS) $(IDIR)/run_tests.h $(TDIR)/$(IDIR)/all_tests.h $(IDIR)/utilities.h
+$(ODIR)/run_tests.o: run_tests.cpp $(TDIR)/$(ODIR)/test.o $(TESTS) $(IDIR)/run_tests.h $(TDIR)/$(IDIR)/all_tests.h $(IDIR)/utilities.h
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 $(ODIR)/utilities.o: utilities.cpp $(IDIR)/utilities.h
@@ -37,7 +37,7 @@ $(TDIR)/$(ODIR)/%.o: $(TDIR)/%.cpp $(TESTDEPS)
 $(ODIR)/%.o: %.cpp $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-test: $(OBJ) $(TESTS)
+test: $(OBJ) $(TDIR)/$(ODIR)/test.o $(TESTS)
 	$(CC) -o $(OUTDIR)/$@ $^ $(CFLAGS) $(LIBS)
 
 .PHONY: clean
