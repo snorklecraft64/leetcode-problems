@@ -13,7 +13,8 @@ std::unordered_map<std::string, Test> tests = {{"TrapRain", TestTrapRain()},
                                                {"ReverseWords", TestReverseWords()},
                                                {"ZigZagConversion", TestZigZagConversion()},
                                                {"NeedleInHaystack", TestNeedleInHaystack()},
-                                               {"FullJustify", TestFullJustify()}};
+                                               {"FullJustify", TestFullJustify()},
+                                               {"IsPalindrome", TestIsPalindrome()}};
 std::string helpMessage = "\n"
 "  -a    run all tests\n"
 "        use as first argument to run all tests of all problems\n"

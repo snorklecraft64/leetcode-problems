@@ -428,7 +428,34 @@ std::vector<std::string> Problems::full_justify(const std::vector<std::string>& 
   return justified;
 }
 
+bool Problems::is_palindrome(const std::string& input) {
+  // first convert to only alphanumeric characters in lowercase
+  std::string cleaned;
+  for (auto ch : input) {
+    if (std::isalpha(ch)) {
+      if (std::isupper(ch))
+        cleaned += std::tolower(ch);
+      else
+        cleaned += ch;
+    }
+  }
 
+  // go through cleaned forward and backward at same time to check if match
+  int i = 0;
+  int j = cleaned.size() - 1;
+  bool palindrome = true;
+  while (i < cleaned.size()) {
+    if (cleaned[i] != cleaned[j]) {
+      palindrome = false;
+      break;
+    }
+
+    i++;
+    j--;
+  }
+
+  return palindrome;
+}
 
 
 

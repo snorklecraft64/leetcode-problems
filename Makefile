@@ -9,7 +9,7 @@ OUTDIR=out
 
 LIBS=-lm
 
-_TESTS = test.o test_candy.o test_traprain.o test_romantoint.o test_inttoroman.o test_longestcommonprefix.o test_reversewords.o test_zigzagconversion.o test_needleinhaystack.o test_fulljustify.o
+_TESTS = test.o test_candy.o test_traprain.o test_romantoint.o test_inttoroman.o test_longestcommonprefix.o test_reversewords.o test_zigzagconversion.o test_needleinhaystack.o test_fulljustify.o test_ispalindrome.o
 TESTS = $(patsubst %,$(TDIR)/$(ODIR)/%,$(_TESTS))
 
 _OBJ = utilities.o problems.o run_tests.o

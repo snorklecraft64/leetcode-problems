@@ -96,4 +96,11 @@ class Problems {
      */
     static std::vector<std::string> full_justify(const std::vector<std::string>& words, int maxWidth);
 
+    /**
+     * Given a string, return true if it is a palindrome, false otherwise
+     * 
+     * https://leetcode.com/problems/valid-palindrome/description/
+     */
+    static bool is_palindrome(const std::string& input);
+
 };
