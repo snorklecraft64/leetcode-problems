@@ -483,7 +483,24 @@ bool Problems::is_palindrome(const std::string& input) {
   return palindrome;
 }
 
+bool Problems::is_subsequence(const std::string& s, const std::string& t) {
+  int i = 0; // index into t
+  int j = 0; // index into s
+  // go through all of t until all of s is found (in order)
+  while (i < t.size()) {
+    if (s[j] == t[i]) {
+      j++;
+      if (j >= s.size())
+        break;
+    }
+    else {
+      i++;
+    }
+  }
 
+  // if j is greater or equal to s.size(), it means all chars of s were found
+  return j >= s.size();
+}
 
 
 

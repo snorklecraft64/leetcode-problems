@@ -9,3 +9,4 @@
 #include "test_needleinhaystack.cpp"
 #include "test_fulljustify.cpp"
 #include "test_ispalindrome.cpp"
+#include "test_issubsequence.cpp"

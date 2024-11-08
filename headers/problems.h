@@ -103,4 +103,8 @@ class Problems {
      */
     static bool is_palindrome(const std::string& input);
 
+    /**
+     * Given two strings s and t, return true if s is a subsequence of t, or false otherwise.
+     */
+    static bool is_subsequence(const std::string& s, const std::string& t);
 };

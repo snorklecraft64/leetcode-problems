@@ -33,6 +33,12 @@ class Test {
     static std::string formatFail(int value, int expected) {
       return "---Failed---> Expected ( " + std::to_string(expected) + " ) but got ( " + std::to_string(value) + " ).";
     }
+    static std::string formatFail(bool value, bool expected) {
+      // use streams to convert bool to "true" or "false"
+      std::ostringstream oss;
+      oss << std::boolalpha << "---Failed---> Expected ( " << expected << " ) but got ( " << value << " ).";
+      return oss.str();
+    }
     static std::string formatFail(std::string value, std::string expected) {
       return "---Failed---> Expected ( " + expected + " ) but got ( " + value + " ).";
     }
