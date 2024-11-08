@@ -13,6 +13,11 @@ says that the input is guarenteed to be a certain way
 #--Erik Warling--#
 */
 
+/**
+ * Go through left to right, then right to left.
+ * If current child has higher rating than last,
+ * make sure they have one more candy than them
+ */
 int Problems::candy(std::vector<int>& ratings) {
   std::vector<int> candies(ratings.size(), 1);
   for (int i = 1; i < ratings.size(); i++) {
@@ -33,6 +38,7 @@ int Problems::trap_rainwater(std::vector<int>& input) {
   std::vector<int> maxLeft;
   std::vector<int> maxRight(input.size());
 
+  // Build maxLeft and maxRight, which stores the max size of walls on either side of a given index
   int max = 0;
   for (auto& num : input) {
     maxLeft.push_back(max);
@@ -46,6 +52,9 @@ int Problems::trap_rainwater(std::vector<int>& input) {
       max = input[i];
   }
 
+  // At a given index, the amount of rainwater it holds
+  // is determined by the shortest of left or right walls
+  // minus the height at that index
   int count = 0;
   for (int i = 0; i < input.size(); i++) {
     int height = std::min(maxLeft[i], maxRight[i]);
@@ -78,6 +87,8 @@ int Problems::trap_rainwater(std::vector<int>& input) {
 int Problems::roman_to_int(const std::string& input) {
   int total = 0;
   int i = input.size()-1;
+  // go through right to left
+  // if encounter a double, i subtracted twice
   while (i > 0) {
     char currChar = input[i];
     char nextChar = input[i-1];
@@ -134,6 +145,7 @@ int Problems::roman_to_int(const std::string& input) {
     i--;
   }
 
+  // i == 0 when left-most character is not part of a double
   if (i == 0) {
     switch(input[0]) {
       case 'M':
@@ -227,9 +239,11 @@ std::string Problems::int_to_roman(int num) {
 
 int Problems::length_of_last_word(const std::string& input) {
   int i = input.size()-1;
+  // go right to left until first non-space character
   while (input[i] == ' ')
     i--;
   int count = 0;
+  // count right to left until next space character, or beginning of string
   while (i >= 0 && input[i] != ' ') {
     count++;
     i--;
@@ -242,10 +256,13 @@ std::string Problems::longest_common_prefix(const std::vector<std::string>& inpu
     return "";
   if (!input[0].size())
     return "";
+  
   char currChar = input[0][0];
   std::string result;
-  int i = 0;
-  int j = 0;
+  int i = 1; // index into vector
+  int j = 0; // index into strings
+  // checks if jth index of all strings is the same
+  // if it is, then add it to result and start from beginning of vector again
   while (j < input[i].size() && input[i][j] == currChar) {
     i++;
     if (i == input.size()) {
@@ -264,18 +281,24 @@ std::string Problems::longest_common_prefix(const std::vector<std::string>& inpu
 std::string Problems::reverse_words(const std::string& input) {
   if (input.empty())
     return "";
+  
+  // seperate out words from input
   std::istringstream inputStream(input);
   std::vector<std::string> words;
   for (std::string buffer; inputStream >> buffer; ) {
     words.push_back(buffer);
   }
+
   if (words.size() == 0)
     return "";
+  
+  // append all words in reverse order
+  // by starting from back of vector and working towards the front
   std::string result;
   for (int i = words.size()-1; i >= 0; i--) {
     result.append(words[i] + " ");
   }
-  result.pop_back();
+  result.pop_back(); // get rid of extraneous space
   return result;
 }
 
@@ -325,26 +348,27 @@ std::string Problems::zigzag_conversion(const std::string& input, int numRows) {
   return result;
 }
 
-// find first occurence given string "needle" in "haystack"
-// returns -1 if none found
 int Problems::needle_in_haystack(const std::string& haystack, const std::string& needle) {
   int i = 0;
-  int j = 0;
   int index = -1;
   while (i < haystack.size()) {
-    if (haystack[i] == needle[j]) {
+    if (haystack[i] == needle[0]) {
+      // if we find the first index of needle in haystack,
+      // keep going with subsequent indexes
       index = i;
-      i++; j++;
+      i++;
+      int j = 1;
       while (i < haystack.size() && j < needle.size()) {
         if (haystack[i] != needle[j])
           break;
         i++; j++;
       }
+      // if we cound the whole needle, the index is correct and can return
       if (j == needle.size())
         break;
+      // otherwise, index is not correct, return to original loop
       else {
         index = -1;
-        j = 0;
       }
     }
     else {
@@ -365,7 +389,7 @@ std::string justify_line(std::vector<std::string>& currWords, int currCount, int
       currWords[i] += " ";
     }
     int j = 0; // index in currWords to add to
-    // add spaces to end of words (expect last) until we have all the spaces we need
+    // add spaces to end of words (except last) until we have all the spaces we need
     for (int i = 0; i < spacesNeeded; i++) {
       if (j == currWords.size()-1) {
         j = 0;
@@ -391,14 +415,16 @@ std::string justify_line(std::vector<std::string>& currWords, int currCount, int
 
 std::vector<std::string> Problems::full_justify(const std::vector<std::string>& words, int maxWidth) {
   int currCount = 0;
-  std::vector<std::string> currWords;
   std::vector<std::string> justified;
 
+
+  std::vector<std::string> currWords; // words in current line
   std::string word = words[0];
   currWords.push_back(word);
-  currCount += word.size();
+  currCount += word.size(); // how many chars in current line
   for (int i = 1; i < words.size(); i++) {
     word = words[i];
+    // if word won't fit in current line, justify it and add to result
     if (currCount + word.size() + 1 > maxWidth) { // +1 is for the space 
       
       justified.push_back(justify_line(currWords, currCount, maxWidth));
