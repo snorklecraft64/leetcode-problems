@@ -127,5 +127,11 @@ class Problems {
      */
     static int max_water(const std::vector<int>& input);
 
+    /**
+     * Given an int array, return all triplets that add to 0
+     * 
+     * https://leetcode.com/problems/3sum/description/
+     */
+    static std::vector<std::vector<int>> three_sum(const std::vector<int>& input);
 
 };

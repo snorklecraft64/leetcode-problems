@@ -12,3 +12,4 @@
 #include "test_issubsequence.cpp"
 #include "test_twosum2.cpp"
 #include "test_maxwater.cpp"
+#include "test_threesum.cpp"

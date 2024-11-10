@@ -2,6 +2,7 @@
 #include "utilities.h"
 #include <iostream>
 #include <sstream>
+#include <algorithm>
 
 /*
 CHECK HEADER FILE FOR PROBLEM DESCRIPTIONS
@@ -552,7 +553,43 @@ int Problems::max_water(const std::vector<int>& input)  {
   return max;
 }
 
+std::vector<std::vector<int>> Problems::three_sum(const std::vector<int>& input) {
+  std::vector<int> nums = input;
+  std::vector<std::vector<int>> triplets;
 
+  // sort array in non-decreasing order
+  std::sort(nums.begin(), nums.end());
+
+  int sum, leftIndex, rightIndex, target, twosum;
+  // go through every num except last 2
+  for (int i = 0; i < nums.size()-2; i++) {
+    // do two sum starting at i+1 with target -nums[i]
+    // code more-or-less copied from two_sum_2 method above
+    // calling it would mean making a whole new vector, so this is faster
+    // also there is not guarenteed to be an answer this time
+    leftIndex = i+1;
+    rightIndex = nums.size()-1;
+    target = -nums[i];
+
+    twosum = nums[leftIndex] + nums[rightIndex];
+    // added "leftIndex != rightIndex" because there is not guarenteed to be an answer
+    // so we need to stop when we've tried all combinations
+    while (twosum != target && leftIndex != rightIndex) {
+      if (twosum > target)
+        rightIndex--;
+      else
+        leftIndex++;
+      twosum = nums[leftIndex] + nums[rightIndex];
+    }
+
+    // if triplet was found, add to solutions
+    // if leftIndex and rightIndex aren't equal, it means two sum found a solution
+    if (leftIndex != rightIndex)
+      triplets.push_back(std::vector<int>({nums[i], nums[leftIndex], nums[rightIndex]}));
+  }
+
+  return triplets;
+}
 
 
 

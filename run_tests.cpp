@@ -71,10 +71,10 @@ int main(int argc, char* argv[]) {
   }
   }
   catch (std::string message) {
-    std::cout << "failure: " << message;
+    std::cout << "failure: " << message << std::endl;
   }
   catch (std::invalid_argument error) {
-    std::cout << "failure: gave non-integer after -v";
+    std::cout << "failure: gave non-integer after -v" << std::endl;
   }
 }
 

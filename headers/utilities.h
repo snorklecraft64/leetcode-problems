@@ -19,6 +19,17 @@ class Utilities {
       result += std::to_string(vec.back()) + " }";
       return result;
     }
+
+    template<typename T>
+    static std::string vectorToString(const std::vector<std::vector<T>>& vec) {
+      std::string result;
+      result += "{ ";
+      for (int i = 0; i < vec.size()-1; i++) {
+        result += vectorToString(vec[i]) + ", ";
+      }
+      result += vectorToString(vec.back()) + " }";
+      return result;
+    }
     
 };
 

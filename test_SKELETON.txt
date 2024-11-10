@@ -11,14 +11,6 @@ class TestCHANGE : public Test {
       return Test::formatReturn(passed, value, expected);
     }
 
-    static TEST_RETURN test_leetcode2() {
-      std::vector<int> input = {4,2,0,3,2,5};
-      int expected = 9;
-      int value = Problems::CHANGE(input);
-      bool passed = expected == value;
-      return Test::formatReturn(passed, value, expected);
-    }
-
   public:
 
     TestCHANGE() : Test("CHANGE",

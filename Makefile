@@ -9,7 +9,7 @@ OUTDIR=out
 
 LIBS=-lm
 
-_TESTS = candy traprain romantoint inttoroman longestcommonprefix reversewords zigzagconversion needleinhaystack fulljustify ispalindrome issubsequence twosum2 maxwater
+_TESTS = candy traprain romantoint inttoroman longestcommonprefix reversewords zigzagconversion needleinhaystack fulljustify ispalindrome issubsequence twosum2 maxwater threesum
 TESTS = $(patsubst %,$(TDIR)/$(ODIR)/test_%.o,$(_TESTS))
 
 _OBJ = utilities.o problems.o run_tests.o
@@ -24,6 +24,11 @@ TESTDEPS = $(patsubst %,$(TDIR)/$(IDIR)/%,$(_TESTDEPS))
 _dummy := $(@shell mkdir $(OUTDIR))
 _dummy := $(@shell mkdir $(ODIR))
 _dummy := $(@shell mkdir $(TDIR)\$(ODIR))
+
+all: test
+
+debug: CFLAGS += -g
+debug: test
 
 $(ODIR)/run_tests.o: run_tests.cpp $(TDIR)/$(ODIR)/test.o $(TESTS) $(IDIR)/run_tests.h $(TDIR)/$(IDIR)/all_tests.h $(IDIR)/utilities.h
 	$(CC) -c -o $@ $< $(CFLAGS)

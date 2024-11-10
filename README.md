@@ -9,7 +9,12 @@ To get it to work on Linux, you may only need to change the 'clean' rule in the 
 use make in root folder to build
 
 ```bash
-make test
+make
+```
+
+a debug version for use with gdb can also be made. (be sure to use make clean before)
+```bash
+make debug
 ```
 
 ## Usage
