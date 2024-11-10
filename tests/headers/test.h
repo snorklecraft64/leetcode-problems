@@ -46,6 +46,10 @@ class Test {
     static std::string formatFail(std::vector<T> value, std::vector<T> expected) {
       return "---Failed---> Expected ( " + Utilities::vectorToString(expected) + " ) but got ( " + Utilities::vectorToString(value) + " ).";
     }
+    template<typename T, typename U>
+    static std::string formatFail(std::pair<T,U> value, std::pair<T,U> expected) {
+      return "---Failed---> Expected ( " + std::to_string(expected.first) + " , " + std::to_string(expected.second) + " ) but got ( " + std::to_string(value.first) + " , " + std::to_string(value.second) + " ).";
+    }
 
   public:
 

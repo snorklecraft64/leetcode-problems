@@ -10,3 +10,5 @@
 #include "test_fulljustify.cpp"
 #include "test_ispalindrome.cpp"
 #include "test_issubsequence.cpp"
+#include "test_twosum2.cpp"
+#include "test_maxwater.cpp"

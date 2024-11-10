@@ -502,6 +502,64 @@ bool Problems::is_subsequence(const std::string& s, const std::string& t) {
   return j >= s.size();
 }
 
+/**
+ * start by adding first and last elements together
+ * if too small, increase left index; if too big, decrease right index
+ * since part of problem description guarantees there is an answer, eventually it will be found
+ */
+std::pair<int,int> Problems::two_sum_2(const std::vector<int>& input, int target) {
+  int leftIndex = 0;
+  int rightIndex = input.size()-1;
+
+  int sum = input[leftIndex] + input[rightIndex];
+  while (sum != target) {
+    if (sum > target)
+      rightIndex--;
+    else
+      leftIndex++;
+    sum = input[leftIndex] + input[rightIndex];
+  }
+
+  return std::pair<int,int>(leftIndex,rightIndex);
+}
+
+int Problems::max_water(const std::vector<int>& input)  {
+  int leftIndex = 0;
+  int rightIndex = input.size()-1;
+
+  // smaller height of the two times difference gives area
+  int max = std::min(input[leftIndex],input[rightIndex]) * (rightIndex-leftIndex);
+  int currArea, left, right, diff;
+  while (leftIndex != rightIndex) {
+    left = input[leftIndex];
+    right = input[rightIndex];
+    diff = (rightIndex-leftIndex);
+
+    // advance smaller height because this is the largest rectangle it can make
+    if (left < right) {
+      currArea = left * diff;
+      leftIndex++;
+    }
+    else {
+      currArea = right * diff;
+      rightIndex--;
+    }
+
+    if (currArea > max)
+      max = currArea;
+  }
+
+  return max;
+}
+
+
+
+
+
+
+
+
+
 
 
 

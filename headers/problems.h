@@ -81,7 +81,7 @@ class Problems {
 
     /**
      * Given two strings needle and haystack, return the index of the first occurrence of needle in haystack,
-     * or -1 if needle is not part of haystack
+     * or -1 if needle is not part of haystack.
      * 
      * https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/description/
      */
@@ -97,7 +97,7 @@ class Problems {
     static std::vector<std::string> full_justify(const std::vector<std::string>& words, int maxWidth);
 
     /**
-     * Given a string, return true if it is a palindrome, false otherwise
+     * Given a string, return true if it is a palindrome, false otherwise.
      * 
      * https://leetcode.com/problems/valid-palindrome/description/
      */
@@ -107,4 +107,25 @@ class Problems {
      * Given two strings s and t, return true if s is a subsequence of t, or false otherwise.
      */
     static bool is_subsequence(const std::string& s, const std::string& t);
+
+    /**
+     * Given an array of numbers sorted in non-decreasing order,
+     * find two numbers such that they add up to a specific target.
+     * 
+     * vv I am ignoring the "1-indexed" part vv
+     * https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/description/
+     */
+    static std::pair<int,int> two_sum_2(const std::vector<int>& input, int target);
+
+    /**
+     * Given an array of line heights, find two lines that together form a container,
+     * such that the container contains the most water.
+     * 
+     * Better thought of as which two lines make the largest area rectangle.
+     * 
+     * https://leetcode.com/problems/container-with-most-water/description/
+     */
+    static int max_water(const std::vector<int>& input);
+
+
 };
