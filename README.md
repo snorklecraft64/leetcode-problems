@@ -30,4 +30,7 @@ out/test -p NeedleInHaystack "Leetcode Example 1"
 
 # run all tests silently unless failure
 out/test -a -v 0
+
+# display test names on problem "NeedleInHaystack"
+out/test -l NeedleInHaystack
 ```

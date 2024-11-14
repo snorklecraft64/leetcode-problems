@@ -76,6 +76,8 @@ class Test {
 
     void setVerbosity(int v) { this->verbosity = v; }
 
+    std::vector<std::string> getTestNames();
+
     // maybe try to implement this someday
     // intended to be a general purpose run test function for ease of test implementation
     //template<typename I, typename R>

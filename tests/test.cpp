@@ -66,3 +66,11 @@ void Test::runOne(std::string testName) {
     throw(testName + " is not a test in class " + this->source);
   Test::runTest(testName, it->second);
 }
+
+std::vector<std::string> Test::getTestNames() {
+  std::vector<std::string> result;
+  for (auto test : tests) {
+    result.push_back(test.first);
+  }
+  return result;
+}

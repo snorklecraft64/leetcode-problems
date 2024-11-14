@@ -23,6 +23,26 @@ int main(int argc, char* argv[]) {
 
     runAllTests();
   }
+  else if (std::string(argv[1]) == "-l") {
+    if (argc > 2) {
+      auto it = tests.find(argv[2]);
+      if (it == tests.end())
+        throw(std::string(argv[2]) + " is not a recognized problem");
+
+      auto _class = it->second;
+
+      //TODO add listing of tests for problem (maybe by added method in Test class to return all test names?)
+      std::vector<std::string> names = _class.getTestNames();
+      std::string message;
+      for (auto name : names) {
+        message += name + "\n";
+      }
+      std::cout << message << std::endl;
+      return 0;
+    }
+    else
+      throw(std::string("problem name needed after -l"));
+  }
   else {
     int i = 1;
     bool isProblem = false;

@@ -33,7 +33,10 @@ std::string helpMessage = "\n"
 "        next argument should be an integer from 0 to 2 inclusive\n"
 "      0 => only print on failure\n"
 "      1 => don't print individual test results unless failure\n"
-"      2 => print all test results and total results\n";
+"      2 => print all test results and total results\n"
+"\n"
+"  -l    list all tests of the given problem\n"
+"        next argument should be the problem for which to list tests\n";
 
 void runAllTests();
 void setVerbosity(int v);
