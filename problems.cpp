@@ -591,7 +591,53 @@ std::vector<std::vector<int>> Problems::three_sum(const std::vector<int>& input)
   return triplets;
 }
 
+int Problems::min_subarray_sum(const std::vector<int>& nums, int target) {
+  // if nums is only one number, that number needs to be greater than or equal
+  // to target or else there is no subarray
+  if (nums.size() == 1) {
+    if (nums[0] >= target)
+      return 1;
+    else
+      return 0;
+  }
 
+  // perform a 'sliding window' approach starting with first two nums
+  int leftIndex = 0;
+  int rightIndex = 1;
+  int currSum = nums[0] + nums[1];
+  int min = nums.size() + 1;
+
+  while (true) {
+    // if currSum is greater or equal, then we need to make window smaller
+    if (currSum >= target) {
+      if (rightIndex - leftIndex + 1 < min)
+        min = rightIndex - leftIndex + 1;
+      
+      currSum = currSum - nums[leftIndex];
+      leftIndex++;
+
+      // if we can't make window smaller, then we've already found minimum
+      if (leftIndex > rightIndex)
+        break;
+    }
+    // if currSum is lesser, then we need to make window bigger
+    else {
+      rightIndex++;
+
+      // if we're at end we can't make window bigger
+      if (rightIndex >= nums.size())
+        break;
+      
+      currSum += nums[rightIndex];
+    }
+  }
+
+  // if min never changed, we never found an answer
+  if (min == nums.size() + 1)
+    return 0;
+
+  return min;
+}
 
 
 

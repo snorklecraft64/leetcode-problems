@@ -134,4 +134,16 @@ class Problems {
      */
     static std::vector<std::vector<int>> three_sum(const std::vector<int>& input);
 
+    /**
+     * Given an int array, return the minimum possible size of a subarray
+     * whose sum is greater than or equal to the given target. If no subarray
+     * exists, return 0.
+     * 
+     * https://leetcode.com/problems/minimum-size-subarray-sum/description/
+     */
+    static int min_subarray_sum(const std::vector<int>& nums, int target);
+
+
+
+
 };
