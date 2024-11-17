@@ -14,3 +14,4 @@
 #include "test_maxwater.cpp"
 #include "test_threesum.cpp"
 #include "test_minsubarraysum.cpp"
+#include "test_longestnonrepeatingsubstring.cpp"

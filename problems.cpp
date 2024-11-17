@@ -3,6 +3,7 @@
 #include <iostream>
 #include <sstream>
 #include <algorithm>
+#include <unordered_set>
 
 /*
 CHECK HEADER FILE FOR PROBLEM DESCRIPTIONS
@@ -639,7 +640,43 @@ int Problems::min_subarray_sum(const std::vector<int>& nums, int target) {
   return min;
 }
 
+int Problems::longest_nonrepeating_substring(const std::string input) {
+  // if string is empty, no substrings exist so answer is 0
+  if (input.size() == 0)
+    return 0;
+  // if string is only one character, answer is trivially 1
+  else if (input.size() == 1)
+    return 1;
 
+  // perform sliding window approach starting with first two characters
+  int leftIndex = 0; // index of left side of window
+  int rightIndex = 1; // index of right side of window + 1
+  int max = 1;
+  std::unordered_set<char> chars; // set of chars in current substring
+  chars.insert(input[0]);
+  while (true) {
+    // if char to add is already in substring, don't increase max
+    // and reduce sliding window on left side
+    if (chars.find(input[rightIndex]) != chars.end()) {
+      chars.erase(input[leftIndex]);
+      leftIndex++;
+      if (leftIndex >= input.size())
+        break;
+    }
+    // if char not in substring already, update max accordingly
+    // and increase window on right side
+    else {
+      chars.insert(input[rightIndex]);
+      if (chars.size() > max)
+        max = chars.size();
+      rightIndex++;
+      if (rightIndex >= input.size())
+        break;
+    }
+  }
+
+  return max;
+}
 
 
 

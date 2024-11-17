@@ -143,7 +143,12 @@ class Problems {
      */
     static int min_subarray_sum(const std::vector<int>& nums, int target);
 
-
+    /**
+     * Find the longest substring that has no repeating characters
+     * 
+     * https://leetcode.com/problems/longest-substring-without-repeating-characters/description/
+     */
+    static int longest_nonrepeating_substring(const std::string input);
 
 
 };
