@@ -4,6 +4,7 @@
 #include <sstream>
 #include <algorithm>
 #include <unordered_set>
+#include <unordered_map>
 
 /*
 CHECK HEADER FILE FOR PROBLEM DESCRIPTIONS
@@ -678,8 +679,62 @@ int Problems::longest_nonrepeating_substring(const std::string input) {
   return max;
 }
 
+std::vector<int> Problems::concatenated_substrings(const std::string s, const std::vector<std::string> words) {
+  // make a map of the word to how many times we can use paired with how many times we have
+  // first is how many times we can use it, second is how many times we have
+  std::unordered_map<std::string, std::pair<int,int>> word_map;
+  for (auto word : words) {
+    // if already in word_map, increase its max count
+    if (word_map.find(word) != word_map.end())
+      word_map[word].first++;
+    else
+      word_map.insert({word, std::pair<int,int>(1,0)});
+  }
 
+  std::vector<int> result;
+  // since every word is same length (given in problem statement),
+  // we just scan every word length in the string and compare it to word list
+  int n = words[0].size();
+  std::string currWord;
+  int currIndex = 0;
+  int answerIndex = 0;
+  int totalWords = 0;
+  // count words seen in s consecutively, answer is found when enough consecutive words are found
+  while (currIndex < s.size()) {
+    currWord = s.substr(currIndex, n);
 
+    // if word not in words, reset counters
+    if (word_map.find(currWord) == word_map.end()) {
+      totalWords = 0;
+      for (auto ele : word_map) {
+        word_map[ele.first].second = 0;
+      }
+      answerIndex = currIndex + n;
+    }
+    // if word in words, add to counter
+    else {
+      word_map[currWord].second++;
+      totalWords++;
 
+      // if counter now too high, keep removing words at beginning of substring until count is good again
+      if (word_map[currWord].second > word_map[currWord].first) {
+        do {
+          word_map[s.substr(answerIndex, n)].second--;
+          answerIndex += n;
+          totalWords--;
+        } while (word_map[currWord].second > word_map[currWord].first);
+      }
+      // if count is good and we have enough words, add it to result and go on to next word
+      else if (totalWords == words.size()){
+        result.push_back(answerIndex);
+        word_map[s.substr(answerIndex, n)].second--;
+        answerIndex += n;
+        totalWords--;
+      }
+    }
 
+    currIndex += n;
+  }
 
+  return result;
+}

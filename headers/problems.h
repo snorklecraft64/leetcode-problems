@@ -150,5 +150,15 @@ class Problems {
      */
     static int longest_nonrepeating_substring(const std::string input);
 
+    /**
+     * Find first indices of all substrings that are a concatenation of all the given words in any order.
+     * For example, if words = ["ab","cd","ef"], then "abcdef", "abefcd", "cdabef", "cdefab", "efabcd", and "efcdab"
+     * are all concatenated strings. "acdbef" is not a concatenated string because it is not the concatenation
+     * of any permutation of words.
+     * 
+     * https://leetcode.com/problems/substring-with-concatenation-of-all-words/description/
+     */
+    static std::vector<int> concatenated_substrings(const std::string s, const std::vector<std::string> words);
+
 
 };

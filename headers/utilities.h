@@ -11,6 +11,9 @@ class Utilities {
 
     template<typename T>
     static std::string vectorToString(const std::vector<T>& vec) {
+      if (vec.size() == 0)
+        return "{}";
+      
       std::string result;
       result += "{ ";
       for (int i = 0; i < vec.size()-1; i++) {
@@ -22,6 +25,9 @@ class Utilities {
 
     template<typename T>
     static std::string vectorToString(const std::vector<std::vector<T>>& vec) {
+      if (vec.size() == 0)
+        return "{}";
+      
       std::string result;
       result += "{ ";
       for (int i = 0; i < vec.size()-1; i++) {
@@ -38,6 +44,9 @@ class Utilities {
  */
 template<> inline
 std::string Utilities::vectorToString(const std::vector<std::string>& vec) {
+  if (vec.size() == 0)
+    return "{}";
+  
   std::string result = "";
   result += "{ ";
   for (int i = 0; i < vec.size()-1; i++) {

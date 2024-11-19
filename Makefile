@@ -9,7 +9,8 @@ OUTDIR=out
 
 LIBS=-lm
 
-_TESTS = candy traprain romantoint inttoroman longestcommonprefix reversewords zigzagconversion needleinhaystack fulljustify ispalindrome issubsequence twosum2 maxwater threesum minsubarraysum longestnonrepeatingsubstring
+_TESTS = candy traprain romantoint inttoroman longestcommonprefix reversewords zigzagconversion needleinhaystack fulljustify ispalindrome
+_TESTS+= issubsequence twosum2 maxwater threesum minsubarraysum longestnonrepeatingsubstring concatenatedsubstrings
 TESTS = $(patsubst %,$(TDIR)/$(ODIR)/test_%.o,$(_TESTS))
 
 _OBJ = utilities.o problems.o run_tests.o
