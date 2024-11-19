@@ -679,7 +679,67 @@ int Problems::longest_nonrepeating_substring(const std::string input) {
   return max;
 }
 
+// improved version that is maybe easier to understand
+std::vector<int> concatenated_substrings_improved(const std::string s, const std::vector<std::string> words) {
+  // make a map of the word to how many times we can use paired with how many times we have
+  // first is how many times we can use it, second is how many times we have
+  std::unordered_map<std::string, std::pair<int,int>> word_map;
+  for (auto word : words) {
+    // if already in word_map, increase its max count
+    if (word_map.find(word) != word_map.end())
+      word_map[word].first++;
+    else
+      word_map.insert({word, std::pair<int,int>(1,0)});
+  }
+
+  std::vector<int> result;
+  // since every word is same length (given in problem statement),
+  // we just scan every word length in the string and compare it to word list
+  int n = words[0].size();
+  int leftIndex = 0; // left side of sliding window
+  int rightIndex = 0; // right side of sliding window
+  std::string currWord;
+  while (rightIndex < s.size()) {
+    currWord = s.substr(rightIndex, n);
+
+    // if word not in list of words, no substring with this word is an answer
+    // so we move the window past it
+    if (word_map.find(currWord) == word_map.end()) {
+      rightIndex += n;
+      leftIndex = rightIndex;
+      for (auto ele : word_map) {
+        word_map[ele.first].second = 0;
+      }
+    }
+    // word is in words
+    else {
+      word_map[currWord].second++;
+
+      // if the word appears in the substring more than it should
+      if (word_map[currWord].second > word_map[currWord].first) {
+        // shorten beginning of window until we remove an earlier word
+        do {
+          word_map[s.substr(leftIndex, n)].second--;
+          leftIndex += n;
+        } while (word_map[currWord].second > word_map[currWord].first);
+      }
+      // if substring is large enough, add to answer set
+      else if (rightIndex + n - leftIndex == n * words.size()) {
+        result.push_back(leftIndex);
+        word_map[s.substr(leftIndex,n)].second--;
+        leftIndex += n;
+      }
+
+      rightIndex += n;
+    }
+  }
+
+  return result;
+}
+
 std::vector<int> Problems::concatenated_substrings(const std::string s, const std::vector<std::string> words) {
+  return concatenated_substrings_improved(s, words);
+
   // make a map of the word to how many times we can use paired with how many times we have
   // first is how many times we can use it, second is how many times we have
   std::unordered_map<std::string, std::pair<int,int>> word_map;
@@ -738,3 +798,12 @@ std::vector<int> Problems::concatenated_substrings(const std::string s, const st
 
   return result;
 }
+
+
+
+
+
+
+
+
+
