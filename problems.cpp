@@ -680,6 +680,10 @@ int Problems::longest_nonrepeating_substring(const std::string input) {
 }
 
 // improved version that is maybe easier to understand
+// Using a "sliding window" approach, we examine all possible substrings and determine
+// whether or not they have the right number of words from the input list.
+// Done by keeping a count of how many times each word from the list appears
+// and updating it as we slide the window along
 std::vector<int> concatenated_substrings_improved(const std::string s, const std::vector<std::string> words) {
   // make a map of the word to how many times we can use paired with how many times we have
   // first is how many times we can use it, second is how many times we have
@@ -703,7 +707,7 @@ std::vector<int> concatenated_substrings_improved(const std::string s, const std
     currWord = s.substr(rightIndex, n);
 
     // if word not in list of words, no substring with this word is an answer
-    // so we move the window past it
+    // so we move the window past it by moving beginning to the end
     if (word_map.find(currWord) == word_map.end()) {
       rightIndex += n;
       leftIndex = rightIndex;
@@ -711,11 +715,11 @@ std::vector<int> concatenated_substrings_improved(const std::string s, const std
         word_map[ele.first].second = 0;
       }
     }
-    // word is in words
+    // if word is in words
     else {
       word_map[currWord].second++;
 
-      // if the word appears in the substring more than it should
+      // if word is already in substring enough times
       if (word_map[currWord].second > word_map[currWord].first) {
         // shorten beginning of window until we remove an earlier word
         do {
@@ -739,6 +743,9 @@ std::vector<int> concatenated_substrings_improved(const std::string s, const std
 
 std::vector<int> Problems::concatenated_substrings(const std::string s, const std::vector<std::string> words) {
   return concatenated_substrings_improved(s, words);
+
+  // everything below is deprecated
+  // still works but is a little esoteric
 
   // make a map of the word to how many times we can use paired with how many times we have
   // first is how many times we can use it, second is how many times we have
