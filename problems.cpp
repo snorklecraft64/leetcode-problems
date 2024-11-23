@@ -806,7 +806,66 @@ std::vector<int> Problems::concatenated_substrings(const std::string s, const st
   return result;
 }
 
+std::string Problems::min_window_substring(const std::string s, const std::string t) {
+  // make a map of the chars in t to how many times we can use paired with how many times we have
+  // first is how many times we can use it, second is how many times we have
+  std::unordered_map<char, std::pair<int,int>> char_map;
+  for (auto ch : t) {
+    // if already in word_map, increase its max count
+    if (char_map.find(ch) != char_map.end())
+      char_map[ch].first++;
+    else
+      char_map.insert({ch, std::pair<int,int>(1,0)});
+  }
 
+  // do a sliding window approach to find all substrings that have all chars
+  int leftIndex = 0;
+  int rightIndex = 0;
+  int answerLeft = 0;  // left index of final answer
+  int answerRight = s.size(); // right index of final answer
+  int totalCount = 0;
+  char currChar;
+  while (rightIndex < s.size()) {
+    currChar = s[rightIndex];
+
+    // if char in t
+    if (char_map.find(currChar) != char_map.end()) {
+      // increase count
+      char_map[currChar].second++;
+      // if we have more of this char than needed, don't increase total count
+      if (char_map[currChar].second <= char_map[currChar].first)
+        totalCount++;
+    }
+
+    // when we find a substring that has all chars,
+    // keep shrinking window on left side until we no longer have all the chars we need
+    while (totalCount >= t.size()) {
+      // if length is smaller than current answer, replace answer
+      if (rightIndex - leftIndex < answerRight - answerLeft) {
+        answerRight = rightIndex;
+        answerLeft = leftIndex;
+      }
+
+      // reduce window on left side until the next char that appears in t
+      char_map[s[leftIndex]].second--;
+      // if we now have less of this char than needed, decrease total count
+      if (char_map[s[leftIndex]].second < char_map[s[leftIndex]].first)
+        totalCount--;
+      leftIndex++;
+      while (char_map.find(s[leftIndex]) == char_map.end()) {
+        leftIndex++;
+      }
+    }
+
+    rightIndex++;
+  }
+
+  // if answerRight is still s.size(), no substring was found
+  if (answerRight == s.size())
+    return "";
+
+  return s.substr(answerLeft, answerRight-answerLeft+1);
+}
 
 
 

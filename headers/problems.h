@@ -160,5 +160,13 @@ class Problems {
      */
     static std::vector<int> concatenated_substrings(const std::string s, const std::vector<std::string> words);
 
+    /**
+     * Given two strings s and t, find the minimum window substring in s such that
+     * every character in t appears at least once
+     * 
+     * https://leetcode.com/problems/minimum-window-substring/description/
+     */
+    static std::string min_window_substring(const std::string s, const std::string t);
+
 
 };

@@ -16,3 +16,4 @@
 #include "test_minsubarraysum.cpp"
 #include "test_longestnonrepeatingsubstring.cpp"
 #include "test_concatenatedsubstrings.cpp"
+#include "test_minwindowsubstring.cpp"

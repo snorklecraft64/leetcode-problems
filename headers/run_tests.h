@@ -21,7 +21,8 @@ std::unordered_map<std::string, Test> tests = {{"TrapRain", TestTrapRain()},
                                                {"ThreeSum", TestThreeSum()},
                                                {"MinSubarraySum", TestMinSubarraySum()},
                                                {"LongestNonrepeatingSubstring", TestLongestNonrepeatingSubstring()},
-                                               {"ConcatenatedSubstrings", TestConcatenatedSubstrings()}};
+                                               {"ConcatenatedSubstrings", TestConcatenatedSubstrings()},
+                                               {"MinWindowSubstring", TestMinWindowSubstring()}};
 std::string helpMessage = "\n"
 "  -a    run all tests\n"
 "        use as first argument to run all tests of all problems\n"
