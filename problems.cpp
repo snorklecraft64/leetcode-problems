@@ -867,7 +867,40 @@ std::string Problems::min_window_substring(const std::string s, const std::strin
   return s.substr(answerLeft, answerRight-answerLeft+1);
 }
 
+void Problems::merge_sorted_array(std::vector<int>& nums1, int m, std::vector<int>& nums2, int n)  {
+    int i = m - 1;
+    int j = n - 1;
+    int x = m + n - 1;
+    while (i >= 0 && j >= 0) {
+      if (nums2[j] >= nums1[i]) {
+        nums1[x] = nums2[j];
+        j--;
+      }
+      else {
+        nums1[x] = nums1[i];
+        i--;
+      }
+      x--;
+    }
+    // copy rest of nums2 over
+    while (j >= 0) {
+      nums1[x] = nums2[j];
+      x--;
+      j--;
+    }
+  }
 
+int Problems::remove_element(std::vector<int>& nums, int val) {
+  int x, k = 0;
+  for (int i = 0; i < nums.size(); i++) {
+    if (nums[i] != val) {
+      nums[x] = nums[i];
+      x++;
+      k++;
+    }
+  }
+  return k;
+}
 
 
 

@@ -17,3 +17,5 @@
 #include "test_longestnonrepeatingsubstring.cpp"
 #include "test_concatenatedsubstrings.cpp"
 #include "test_minwindowsubstring.cpp"
+#include "test_removeelement.cpp"
+#include "test_mergesortedarray.cpp"

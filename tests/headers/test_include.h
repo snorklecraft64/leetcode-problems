@@ -2,6 +2,7 @@
 #define TEST_INCLUDE_H
 
 #include <cassert>
+#include <iostream>
 #include "problems.h"
 #include "test.h"
 #include <vector>

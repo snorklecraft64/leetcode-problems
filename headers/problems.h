@@ -168,5 +168,20 @@ class Problems {
      */
     static std::string min_window_substring(const std::string s, const std::string t);
 
+    /**
+     * Merge two sorted arrays (non-decreasing) into one in-place, meaning the final result is stored in nums1
+     * 
+     * https://leetcode.com/problems/merge-sorted-array/description/
+     */
+    static void merge_sorted_array(std::vector<int>& nums1, int m, std::vector<int>& nums2, int n);
+
+    /**
+     * Given an integer array nums and an integer val, remove all occurrences of val in nums in-place.
+     * The order of the elements may be changed.
+     * Return the number of elements in nums which are not equal to val.
+     * 
+     * https://leetcode.com/problems/remove-element/description/
+     */
+    static int remove_element(std::vector<int>& nums, int val);
 
 };
