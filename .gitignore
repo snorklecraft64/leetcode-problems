@@ -34,3 +34,4 @@
 # vscode folders
 .vs/
 .vscode/
+.code-workspace
