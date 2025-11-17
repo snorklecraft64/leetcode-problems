@@ -555,42 +555,52 @@ int Problems::max_water(const std::vector<int>& input)  {
   return max;
 }
 
-std::vector<std::vector<int>> Problems::three_sum(const std::vector<int>& input) {
-  std::vector<int> nums = input;
-  std::vector<std::vector<int>> triplets;
+struct VectorHash {
+  size_t operator()(const std::vector<int>& v) const {
+    std::hash<int> hasher;
+    size_t seed = 0;
+    for (int i : v) {
+      seed ^= hasher(i) + 0x9e3779b9 + (seed<<6) + (seed>>2);
+    }
+    return seed;
+  }
+};
 
+std::vector<std::vector<int>> Problems::three_sum(const std::vector<int>& nums) {
+  std::vector<int> input = nums;
+  std::unordered_set<std::vector<int>, VectorHash> triplets;
+  
   // sort array in non-decreasing order
-  std::sort(nums.begin(), nums.end());
-
+  std::sort(input.begin(), input.end());
+  
   int sum, leftIndex, rightIndex, target, twosum;
   // go through every num except last 2
-  for (int i = 0; i < nums.size()-2; i++) {
+  for (int i = 0; i < input.size()-2; i++) {
     // do two sum starting at i+1 with target -nums[i]
-    // code more-or-less copied from two_sum_2 method above
-    // calling it would mean making a whole new vector, so this is faster
-    // also there is not guarenteed to be an answer this time
+    // there is not guarenteed to be an answer this time
     leftIndex = i+1;
-    rightIndex = nums.size()-1;
-    target = -nums[i];
-
-    twosum = nums[leftIndex] + nums[rightIndex];
-    // added "leftIndex != rightIndex" because there is not guarenteed to be an answer
+    rightIndex = input.size()-1;
+    target = -input[i];
+  
+    // "leftIndex != rightIndex" because there is not guarenteed to be an answer
     // so we need to stop when we've tried all combinations
-    while (twosum != target && leftIndex != rightIndex) {
-      if (twosum > target)
+    while (leftIndex != rightIndex) {
+      twosum = input[leftIndex] + input[rightIndex];
+      if (twosum == target) {
+        triplets.insert(std::vector<int>({input[i], input[leftIndex], input[rightIndex]}));
+        leftIndex++;
+      }
+      else if (twosum > target)
         rightIndex--;
       else
         leftIndex++;
-      twosum = nums[leftIndex] + nums[rightIndex];
     }
-
-    // if triplet was found, add to solutions
-    // if leftIndex and rightIndex aren't equal, it means two sum found a solution
-    if (leftIndex != rightIndex)
-      triplets.push_back(std::vector<int>({nums[i], nums[leftIndex], nums[rightIndex]}));
   }
 
-  return triplets;
+  // convert triplets to vector
+  std::vector<std::vector<int>> answer(triplets.begin(), triplets.end());
+  
+  return answer;
 }
 
 int Problems::min_subarray_sum(const std::vector<int>& nums, int target) {

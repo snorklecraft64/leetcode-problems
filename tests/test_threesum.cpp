@@ -3,6 +3,8 @@
 class TestThreeSum : public Test {
   private:
 
+    //TODO: Fix tests to ignore order of answer
+
     static TEST_RETURN test_leetcode1() {
       std::vector<int> input = {-1,0,1,2,-1,-4};
       std::vector<std::vector<int>> expected = {{-1,-1,2},{-1,0,1}};
