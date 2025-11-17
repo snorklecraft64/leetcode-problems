@@ -849,7 +849,13 @@ std::string Problems::min_window_substring(const std::string s, const std::strin
 
     // when we find a substring that has all chars,
     // keep shrinking window on left side until we no longer have all the chars we need
-    while (totalCount >= t.size()) {
+    while (leftIndex < s.length() && totalCount >= t.size()) {
+      // dumb skip for if first letter isn't part of t
+      if (char_map.find(s[leftIndex]) == char_map.end()) {
+        leftIndex++;
+        continue;
+      }
+
       // if length is smaller than current answer, replace answer
       if (rightIndex - leftIndex < answerRight - answerLeft) {
         answerRight = rightIndex;
@@ -862,7 +868,7 @@ std::string Problems::min_window_substring(const std::string s, const std::strin
       if (char_map[s[leftIndex]].second < char_map[s[leftIndex]].first)
         totalCount--;
       leftIndex++;
-      while (char_map.find(s[leftIndex]) == char_map.end()) {
+      while (leftIndex < s.length() && char_map.find(s[leftIndex]) == char_map.end()) {
         leftIndex++;
       }
     }
