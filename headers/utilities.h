@@ -8,6 +8,8 @@ class Utilities {
   public:
     //template <typename T>
     static int sumVector(const std::vector<int>& vec);
+    static int calculateSubmatrixSum(const std::vector<std::vector<int>>& matrix, int x1, int x2, int y1, int y2);
+    static void goThroughEverySubmatrix();
 
     template<typename T>
     static std::string vectorToString(const std::vector<T>& vec) {
