@@ -918,7 +918,144 @@ int Problems::remove_element(std::vector<int>& nums, int val) {
   return k;
 }
 
+// int numberOfSubmatrices(vector<vector<char>>& grid) {
+//   // make new matrix that replaces X with 1, Y with -1, and . with 0
+//   vector<vector<int>> totalCountMatrix(grid.size(), vector<int>(grid[0].size()));
+//   for (int i = 0; i < grid.size(); i++) {
+//     for (int j = 0; j < grid[0].size(); j++) {
+//         if (grid[i][j] == 'X')
+//           totalCountMatrix[i][j] = 1;
+//         else if (grid[i][j] == 'Y')
+//           totalCountMatrix[i][j] = -1;
+//         else
+//           totalCountMatrix[i][j] = 0;
+//     }
+//   }
+//   // calculate prefix sum matrix
+//   vector<vector<int>> totalPrefixMatrix(grid.size(), vector<int>(grid[0].size()));
+//   for (int i = 0; i < grid.size(); i++) {
+//     for (int j = 0; j < grid[0].size(); j++) {
+//       int sum = totalCountMatrix[i][j];
+//       if (i != 0)
+//         sum += totalPrefixMatrix[i-1][j];
+//       if (j != 0)
+//         sum += totalPrefixMatrix[i][j-1];
+//       if (i != 0 && j != 0)
+//         sum -= totalPrefixMatrix[i-1][j-1];
+//       totalPrefixMatrix[i][j] = sum;
+//     }
+//   }
+//   // make new matrix replaces X with 1, Y and . with 0
+//   vector<vector<int>> x_CountMatrix(grid.size(), vector<int>(grid[0].size()));
+//   for (int i = 0; i < grid.size(); i++) {
+//     for (int j = 0; j < grid[0].size(); j++) {
+//       if (grid[i][j] == 'X')
+//         x_CountMatrix[i][j] = 1;
+//       else
+//         x_CountMatrix[i][j] = 0;
+//     }
+//   }
+//   // calculate prefix sum matrix
+//   vector<vector<int>> x_prefixMatrix(grid.size(), vector<int>(grid[0].size()));
+//   for (int i = 0; i < grid.size(); i++) {
+//     for (int j = 0; j < grid[0].size(); j++) {
+//       int sum = x_CountMatrix[i][j];
+//       if (i != 0)
+//         sum += x_prefixMatrix[i-1][j];
+//       if (j != 0)
+//         sum += x_prefixMatrix[i][j-1];
+//       if (i != 0 && j != 0)
+//         sum -= x_prefixMatrix[i-1][j-1];
+//       x_prefixMatrix[i][j] = sum;
+//     }
+//   }
+//   // go through each submatrix and check if it's sum
+//   // is zero in first prefix matrix (that X and Y have equal frequency)
+//   // and greater than 0 in second prefix matrix (theres at least one 1)
+//   int result = 0;
+//   for (int i = 0; i < grid.size(); i++) {
+//     for (int j = 0; j < grid[0].size(); j++) {
+//       if (totalPrefixMatrix[i][j] == 0
+//        && x_prefixMatrix[i][j] > 0)
+//         result++;
+//     }
+//   }
+//   // std::cout << vectorToString(totalCountMatrix) << std::endl;
+//   // std::cout << vectorToString(x_CountMatrix) << std::endl;
+//   // std::cout << vectorToString(totalPrefixMatrix) << std::endl;
+//   // std::cout << vectorToString(x_prefixMatrix) << std::endl;
+//   return result;
+// }
 
+// // combined seperate loops into 1, and removed intermediary matrixes
+// int numberOfSubmatrices_Revision1(vector<vector<char>>& grid) {
+//   vector<vector<int>> sum_matrix(grid.size(), vector<int>(grid[0].size()));
+//   vector<vector<int>> x_matrix(grid.size(), vector<int>(grid[0].size()));
+//   int result = 0;
+//   for (int i = 0; i < grid.size(); i++) {
+//     for (int j = 0; j < grid[0].size(); j++) {
+//         if (grid[i][j] == 'X')
+//           sum_matrix[i][j] = 1;
+//         else if (grid[i][j] == 'Y')
+//           sum_matrix[i][j] = -1;
+//         else
+//           sum_matrix[i][j] = 0;
 
+//         int sum = sum_matrix[i][j];
+//         if (i != 0)
+//           sum += sum_matrix[i-1][j];
+//         if (j != 0)
+//           sum += sum_matrix[i][j-1];
+//         if (i != 0 && j != 0)
+//           sum -= sum_matrix[i-1][j-1];
+//         sum_matrix[i][j] = sum;
 
+//         if (grid[i][j] == 'X')
+//           x_matrix[i][j] = 1;
+//         else
+//           x_matrix[i][j] = 0;
 
+//         sum = x_matrix[i][j];
+//         if (i != 0)
+//           sum += x_matrix[i-1][j];
+//         if (j != 0)
+//           sum += x_matrix[i][j-1];
+//         if (i != 0 && j != 0)
+//           sum -= x_matrix[i-1][j-1];
+//         x_matrix[i][j] = sum;
+
+//         if (sum_matrix[i][j] == 0
+//          && x_matrix[i][j] > 0)
+//           result++;
+//     }
+//   }
+
+//   return result;
+// }
+
+// // adding 0 padding on prefix sum matrixes to remove == 0 checks
+// int numberOfSubmatrices_Revision2(vector<vector<char>>& grid) {
+//   vector<vector<int>> sum_matrix(grid.size()+1, vector<int>(grid[0].size()+1,0));
+//   vector<vector<int>> x_matrix(grid.size()+1, vector<int>(grid[0].size()+1,0));
+//   int result = 0;
+//   for (int i = 1; i < grid.size()+1; i++) {
+//     for (int j = 1; j < grid[0].size()+1; j++) {
+//         if (grid[i-1][j-1] == 'X')
+//           sum_matrix[i][j] = 1;
+//         else if (grid[i-1][j-1] == 'Y')
+//           sum_matrix[i][j] = -1;
+//         else
+//           sum_matrix[i][j] = 0;
+//         sum_matrix[i][j] = sum_matrix[i][j] + sum_matrix[i-1][j] + sum_matrix[i][j-1] - sum_matrix[i-1][j-1];
+//         if (grid[i-1][j-1] == 'X')
+//           x_matrix[i][j] = 1;
+//         else
+//           x_matrix[i][j] = 0;
+//         x_matrix[i][j] = x_matrix[i][j] + x_matrix[i-1][j] + x_matrix[i][j-1] - x_matrix[i-1][j-1];
+//         if (sum_matrix[i][j] == 0
+//          && x_matrix[i][j] > 0)
+//           result++;
+//     }
+//   }
+//   return result;
+// }
